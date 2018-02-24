@@ -19,6 +19,18 @@ import java.io.Serializable;
 @Entity
 public class User implements Serializable {
 
+    private static final long serialVersionUID = -7372949114450772695l;
+
+    public User(){
+    }
+/* */
+    public User(Long id,String name,Integer age,String birthday){
+        this.id = id;
+        this.age = age;
+        this.name = name;
+        this.birthday = birthday;
+    }
+
     /**
      * 编号
      */
