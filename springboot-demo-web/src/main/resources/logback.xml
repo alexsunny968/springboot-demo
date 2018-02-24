@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="false">  
+    <property name="LOG_HOME" value="/mnt/tomcat/logs/"/>
+  
+  	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder charset="UTF-8">
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 按照每天生成日志文件 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender"> 
+    	<!-- <Encoding>UTF-8</Encoding> -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <FileNamePattern>${LOG_HOME}/log_%d{yyyy-MM-dd}.log</FileNamePattern>  
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+		</layout>
+    </appender>
+    
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+	
+	<logger name="org.hibernate" level="WARN" />  
+    <logger name="org.springframework" level="WARN" />  
+	
+ 	<!-- show parameters for hibernate sql 专为 Hibernate 定制 -->  
+    <!-- <logger name="org.hibernate.type.descriptor.sql.BasicBinder"  
+        level="TRACE" />  
+    <logger name="org.hibernate.type.descriptor.sql.BasicExtractor"  
+        level="DEBUG" />  
+    <logger name="org.hibernate.SQL" level="DEBUG" />  
+    <logger name="org.hibernate.engine.QueryParameters" level="DEBUG" />  
+    <logger name="org.hibernate.engine.query.HQLQueryPlan" level="DEBUG" /> --> 
+    
+	<!-- 定制日志级别 -->
+	<!-- <logger name="com.kira.dao" level="DEBUG"/>  -->
+	<!-- <logger name="org.springframework.web.servlet.DispatcherServlet" level="DEBUG" /> -->
+	<!-- <logger name="druid.sql" level="INFO" /> --><!-- 如果spring-config里面没有配置slf4j,就不会显示sql日志，logback只是slf4j的一个实现 -->
+	
+</configuration>  
