@@ -1,6 +1,7 @@
 package cn.unisolution.demo.controller;
 
 import cn.unisolution.demo.domain.User;
+import cn.unisolution.demo.interfacer.Access;
 import cn.unisolution.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -82,6 +83,7 @@ public class UserController {
      *
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
+
     public String putUser(ModelMap map,@ModelAttribute @Valid User user, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -97,6 +99,7 @@ public class UserController {
      * 处理 "/users/{id}" 的 GET 请求，用来删除 User 信息
      */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @Access(authorities = {"admin"})
     public String deleteUser(@PathVariable Long id) {
 
         userService.delete(id);
